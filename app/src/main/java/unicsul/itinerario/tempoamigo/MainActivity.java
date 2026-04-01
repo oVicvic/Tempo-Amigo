@@ -1,7 +1,5 @@
 package unicsul.itinerario.tempoamigo;
 
-import static java.lang.String.*;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -12,8 +10,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.List;
 import unicsul.itinerario.tempoamigo.dto.ClimaDTO;
 import unicsul.itinerario.tempoamigo.network.HttpClient;
+import unicsul.itinerario.tempoamigo.service.AlertaClimaticoService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,13 +40,17 @@ public class MainActivity extends AppCompatActivity {
         TextView textViewUmidade = findViewById(R.id.textViewUmidade);
         TextView textViewVento   = findViewById(R.id.textViewVento);
         TextView textViewChuva   = findViewById(R.id.textViewChuva);
+        TextView textViewAlertas = findViewById(R.id.textViewAlertas);
 
         HttpClient.get(URL, ClimaDTO.class,
                 clima -> runOnUiThread(() -> {
-                    textViewTemp   .setText(format("%s°C", clima.current.temperature2m));
-                    textViewUmidade.setText(format("%d%%", clima.current.relativeHumidity2m));
-                    textViewVento  .setText(format("%s km/h", clima.current.windSpeed10m));
-                    textViewChuva  .setText(format("%s mm", clima.current.precipitation));
+                    textViewTemp   .setText(clima.current.temperature2m      + "°C");
+                    textViewUmidade.setText(clima.current.relativeHumidity2m + "%");
+                    textViewVento  .setText(clima.current.windSpeed10m       + " km/h");
+                    textViewChuva  .setText(clima.current.precipitation      + " mm");
+
+                    List<String> alertas = new AlertaClimaticoService(clima).verificarAlertas();
+                    textViewAlertas.setText(String.join("\n", alertas));
                 }),
                 erro -> Log.e("CLIMA", "Erro: " + erro)
         );
