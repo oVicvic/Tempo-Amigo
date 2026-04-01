@@ -8,12 +8,43 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textViewTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Temperatura: --"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="100dp"/>
+
+    <TextView
+        android:id="@+id/textViewUmidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Umidade: --"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/textViewVento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vento: --"
+        app:layout_constraintTop_toBottomOf="@id/textViewUmidade"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/textViewChuva"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chuva: --"
+        app:layout_constraintTop_toBottomOf="@id/textViewVento"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
