@@ -1,4 +1,4 @@
-package unicsul.itinerario.tempoamigo.network;
+package unicsul.itinerario.tempoamigo.network.clima;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -10,6 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
 import unicsul.itinerario.tempoamigo.dto.ClimaDTO;
+import unicsul.itinerario.tempoamigo.network.HttpClient;
 
 public class ClimaApiClient {
 
