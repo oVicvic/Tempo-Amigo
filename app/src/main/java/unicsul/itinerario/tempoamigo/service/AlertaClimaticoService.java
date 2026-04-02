@@ -3,6 +3,7 @@ package unicsul.itinerario.tempoamigo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import unicsul.itinerario.tempoamigo.dto.ClimaDTO;
 
 public class AlertaClimaticoService {

@@ -24,7 +24,6 @@ import unicsul.itinerario.tempoamigo.location.PermissaoHelper;
 import unicsul.itinerario.tempoamigo.network.clima.ClimaApiClient;
 import unicsul.itinerario.tempoamigo.repository.ClimaRepository;
 import unicsul.itinerario.tempoamigo.service.AlertaClimaticoService;
-import unicsul.itinerario.tempoamigo.service.NotificacaoService;
 import unicsul.itinerario.tempoamigo.worker.ClimaWorker;
 
 public class MainActivity extends AppCompatActivity {
