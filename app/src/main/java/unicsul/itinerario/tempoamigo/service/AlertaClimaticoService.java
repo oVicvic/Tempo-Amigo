@@ -67,7 +67,7 @@ public class AlertaClimaticoService {
         for (int i = 0; i < clima.daily.time.size(); i++) {
             double chuva = clima.daily.precipitationSum.get(i);
             if (chuva > CHUVA_EXTREMA) {
-                alertas.add("🌧️ CHUVA EXTREMA em " + clima.daily.time.get(i) + ": " + chuva + "mm — Risco de alagamentos.");
+                alertas.add("🌧️ CHUVA EXTREMA em " + clima.daily.getTimeFormatado().get(i) + ": " + chuva + "mm — Risco de alagamentos.");
             }
         }
     }
@@ -76,7 +76,7 @@ public class AlertaClimaticoService {
         for (int i = 0; i < clima.hourly.time.size(); i++) {
             int prob = clima.hourly.precipitationProbability.get(i);
             if (prob > PROBABILIDADE_CHUVA_EXTREMA) {
-                alertas.add("⛈️ PROBABILIDADE EXTREMA DE CHUVA em " + clima.hourly.time.get(i) + ": " + prob + "%");
+                alertas.add("⛈️ PROBABILIDADE EXTREMA DE CHUVA em " + clima.hourly.getTimeFormatado().get(i) + ": " + prob + "%");
             }
         }
     }
