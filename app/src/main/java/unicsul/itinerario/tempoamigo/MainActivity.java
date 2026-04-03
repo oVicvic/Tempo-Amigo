@@ -74,10 +74,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void atualizarClima() {
-        TextView textViewTemp    = findViewById(R.id.textViewTemp);
+        TextView textViewTemp = findViewById(R.id.textViewTemp);
         TextView textViewUmidade = findViewById(R.id.textViewUmidade);
-        TextView textViewVento   = findViewById(R.id.textViewVento);
-        TextView textViewChuva   = findViewById(R.id.textViewChuva);
+        TextView textViewVento = findViewById(R.id.textViewVento);
+        TextView textViewChuva = findViewById(R.id.textViewChuva);
         TextView textViewAlertas = findViewById(R.id.textViewAlertas);
 
         climaRepository.buscarClimaPorLocalizacao()

@@ -15,11 +15,11 @@ import unicsul.itinerario.tempoamigo.R;
 
 public class NotificacaoService {
 
-    private static final String CANAL_ID      = "alertas_climaticos";
-    private static final String CANAL_NOME    = "Alertas Climáticos";
-    private static final int    NOTIFICACAO_ID = 1;
+    private static final String CANAL_ID = "alertas_climaticos";
+    private static final String CANAL_NOME = "Alertas Climáticos";
+    private static final int NOTIFICACAO_ID = 1;
 
-    private static final String WHATSAPP_NUMERO   = "5511999999999"; // TODO: pegar dinamicamente
+    private static final String WHATSAPP_NUMERO = "5511999999999"; // TODO: pegar dinamicamente
     private static final String WHATSAPP_MENSAGEM = "Olá, vi os alertas climáticos!"; // TODO: melhorar a adicionar localização
 
     private final Context context;

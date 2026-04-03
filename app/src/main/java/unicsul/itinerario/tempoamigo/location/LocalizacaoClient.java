@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class LocalizacaoClient {
 
-    private static final long UM_HORA_EM_MS   = 60 * 60 * 1000;
+    private static final long UM_HORA_EM_MS = 60 * 60 * 1000;
     private static final long TRES_HORAS_EM_MS = 3 * 60 * 60 * 1000;
 
     private final FusedLocationProviderClient fusedClient;
@@ -36,6 +36,7 @@ public class LocalizacaoClient {
         }
         return buscarLocalizacao();
     }
+
     public CompletableFuture<Location> obterLocalizacaoBackground() {
         if (!temPermissao()) {
             CompletableFuture<Location> future = new CompletableFuture<>();
