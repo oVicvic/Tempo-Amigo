@@ -18,9 +18,11 @@ import androidx.work.WorkManager;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import unicsul.itinerario.tempoamigo.location.LocalizacaoClient;
 import unicsul.itinerario.tempoamigo.location.PermissaoHelper;
+import unicsul.itinerario.tempoamigo.model.Alerta;
 import unicsul.itinerario.tempoamigo.network.clima.ClimaApiClient;
 import unicsul.itinerario.tempoamigo.repository.ClimaRepository;
 import unicsul.itinerario.tempoamigo.service.AlertaClimaticoService;
@@ -88,8 +90,15 @@ public class MainActivity extends AppCompatActivity {
                     textViewVento.setText("Vento: " + clima.current.windSpeed10m + " km/h");
                     textViewChuva.setText("Chuva: " + clima.current.precipitation + " mm");
 
-                    List<String> alertas = new AlertaClimaticoService(clima).verificarAlertas(true);
-                    textViewAlertas.setText(String.join("\n", alertas));
+                    List<Alerta> alertas = new AlertaClimaticoService(clima).verificarAlertas();
+
+                    String textoAlertas = alertas.isEmpty()
+                            ? "Nenhuma condição extrema detectada."
+                            : alertas.stream()
+                            .map(Alerta::formatarParaTela)
+                            .collect(Collectors.joining("\n"));
+
+                    textViewAlertas.setText(textoAlertas);
                 }, mainThread::post)
                 .exceptionally(erro -> {
                     Log.e("CLIMA", erro.getMessage());

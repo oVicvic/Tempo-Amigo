@@ -1,10 +1,10 @@
 package unicsul.itinerario.tempoamigo.service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import unicsul.itinerario.tempoamigo.dto.ClimaDTO;
+import unicsul.itinerario.tempoamigo.model.Alerta;
 
 public class AlertaClimaticoService {
 
@@ -22,8 +22,8 @@ public class AlertaClimaticoService {
         this.clima = clima;
     }
 
-    public List<String> verificarAlertas(boolean msgSemAlertas) {
-        List<String> alertas = new ArrayList<>();
+    public List<Alerta> verificarAlertas() {
+        List<Alerta> alertas = new ArrayList<>();
 
         verificarTemperatura(alertas);
         verificarUmidade(alertas);
@@ -31,52 +31,50 @@ public class AlertaClimaticoService {
         verificarChuva(alertas);
         verificarProbabilidadeChuva(alertas);
 
-        if (msgSemAlertas && alertas.isEmpty()) {
-            alertas.add("Nenhuma condição extrema detectada.");
-        }
-
         return alertas;
     }
 
-    private void verificarTemperatura(List<String> alertas) {
+    private void verificarTemperatura(List<Alerta> alertas) {
         double temp = clima.current.temperature2m;
         if (temp > TEMPERATURA_CALOR_EXTREMO) {
-            alertas.add("🔴 CALOR EXTREMO: " + temp + "°C — Evite exposição ao sol e hidrate-se.");
+            alertas.add(new Alerta(Alerta.Tipo.CALOR, Alerta.Severidade.CRITICO, temp));
         } else if (temp < TEMPERATURA_FRIO_EXTREMO) {
-            alertas.add("🔵 FRIO EXTREMO: " + temp + "°C — Agasalhe-se e evite ficar ao relento.");
+            alertas.add(new Alerta(Alerta.Tipo.FRIO, Alerta.Severidade.CRITICO, temp));
         }
     }
 
-    private void verificarUmidade(List<String> alertas) {
+    private void verificarUmidade(List<Alerta> alertas) {
         int umidade = clima.current.relativeHumidity2m;
         if (umidade > UMIDADE_ALTA_EXTREMA) {
-            alertas.add("💧 UMIDADE EXTREMAMENTE ALTA: " + umidade + "% — Risco de doenças respiratórias.");
+            alertas.add(new Alerta(Alerta.Tipo.UMIDADE_ALTA, Alerta.Severidade.PERIGO, umidade));
         } else if (umidade < UMIDADE_BAIXA_EXTREMA) {
-            alertas.add("🏜️ UMIDADE EXTREMAMENTE BAIXA: " + umidade + "% — Hidrate-se e umidifique o ambiente.");
+            alertas.add(new Alerta(Alerta.Tipo.UMIDADE_BAIXA, Alerta.Severidade.PERIGO, umidade));
         }
     }
 
-    private void verificarVento(List<String> alertas) {
+    private void verificarVento(List<Alerta> alertas) {
         double vento = clima.current.windSpeed10m;
         if (vento > VENTO_EXTREMO) {
-            alertas.add("🌪️ VENTANIA EXTREMA: " + vento + " km/h — Evite áreas abertas e fique abrigado.");
+            alertas.add(new Alerta(Alerta.Tipo.VENTO, Alerta.Severidade.CRITICO, vento));
         }
     }
 
-    private void verificarChuva(List<String> alertas) {
+    private void verificarChuva(List<Alerta> alertas) {
+        List<String> datas = clima.daily.getTimeFormatado();
         for (int i = 0; i < clima.daily.time.size(); i++) {
             double chuva = clima.daily.precipitationSum.get(i);
             if (chuva > CHUVA_EXTREMA) {
-                alertas.add("🌧️ CHUVA EXTREMA em " + clima.daily.getTimeFormatado().get(i) + ": " + chuva + "mm — Risco de alagamentos.");
+                alertas.add(new Alerta(Alerta.Tipo.CHUVA, Alerta.Severidade.CRITICO, chuva, datas.get(i)));
             }
         }
     }
 
-    private void verificarProbabilidadeChuva(List<String> alertas) {
+    private void verificarProbabilidadeChuva(List<Alerta> alertas) {
+        List<String> horas = clima.hourly.getTimeFormatado();
         for (int i = 0; i < clima.hourly.time.size(); i++) {
             int prob = clima.hourly.precipitationProbability.get(i);
             if (prob > PROBABILIDADE_CHUVA_EXTREMA) {
-                alertas.add("⛈️ PROBABILIDADE EXTREMA DE CHUVA em " + clima.hourly.getTimeFormatado().get(i) + ": " + prob + "%");
+                alertas.add(new Alerta(Alerta.Tipo.PROBABILIDADE_CHUVA, Alerta.Severidade.PERIGO, prob, horas.get(i)));
             }
         }
     }

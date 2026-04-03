@@ -1,6 +1,7 @@
 package unicsul.itinerario.tempoamigo.dto;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
