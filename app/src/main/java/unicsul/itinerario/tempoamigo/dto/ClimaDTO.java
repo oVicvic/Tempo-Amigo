@@ -1,6 +1,7 @@
 package unicsul.itinerario.tempoamigo.dto;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClimaDTO {
@@ -29,12 +30,12 @@ public class ClimaDTO {
     @SerializedName("hourly_units")
     public HourlyUnits hourlyUnits;
 
-    public Hourly hourly;
+    public Hourly hourly = new Hourly();
 
     @SerializedName("daily_units")
     public DailyUnits dailyUnits;
 
-    public Daily daily;
+    public Daily daily = new Daily();
 
 
     public static class CurrentUnits {
@@ -89,13 +90,13 @@ public class ClimaDTO {
 
 
     public static class Hourly {
-        public List<String> time;
+        public List<String> time = new ArrayList<>();
 
         @SerializedName("temperature_2m")
-        public List<Double> temperature2m;
+        public List<Double> temperature2m = new ArrayList<>();
 
         @SerializedName("precipitation_probability")
-        public List<Integer> precipitationProbability;
+        public List<Integer> precipitationProbability = new ArrayList<>();
     }
 
 
@@ -114,15 +115,15 @@ public class ClimaDTO {
 
 
     public static class Daily {
-        public List<String> time;
+        public List<String> time = new ArrayList<>();
 
         @SerializedName("temperature_2m_max")
-        public List<Double> temperature2mMax;
+        public List<Double> temperature2mMax = new ArrayList<>();
 
         @SerializedName("temperature_2m_min")
-        public List<Double> temperature2mMin;
+        public List<Double> temperature2mMin = new ArrayList<>();
 
         @SerializedName("precipitation_sum")
-        public List<Double> precipitationSum;
+        public List<Double> precipitationSum = new ArrayList<>();
     }
 }
