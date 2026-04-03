@@ -47,16 +47,17 @@ public class MainActivity extends AppCompatActivity {
                 ClimaApiClient.criar()
         );
 
-        findViewById(R.id.buttonTestar).setOnClickListener(v -> {
-            OneTimeWorkRequest teste = new OneTimeWorkRequest.Builder(ClimaWorker.class).build();
-            WorkManager.getInstance(this).enqueue(teste);
-            Log.d("MainActivity", "Worker de teste enfileirado");
-        });
-
         permissao = new PermissaoHelper(this);
         permissao.solicitar(() -> {
             atualizarClima();
             agendarWorker();
+        });
+
+        //TODO: Remover botão de teste
+        findViewById(R.id.buttonTestar).setOnClickListener(v -> {
+            OneTimeWorkRequest teste = new OneTimeWorkRequest.Builder(ClimaWorker.class).build();
+            WorkManager.getInstance(this).enqueue(teste);
+            Log.d("MainActivity", "Worker de teste enfileirado");
         });
     }
 
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     textViewVento.setText("Vento: " + clima.current.windSpeed10m + " km/h");
                     textViewChuva.setText("Chuva: " + clima.current.precipitation + " mm");
 
-                    List<String> alertas = new AlertaClimaticoService(clima).verificarAlertas();
+                    List<String> alertas = new AlertaClimaticoService(clima).verificarAlertas(true);
                     textViewAlertas.setText(String.join("\n", alertas));
                 }, mainThread::post)
                 .exceptionally(erro -> {

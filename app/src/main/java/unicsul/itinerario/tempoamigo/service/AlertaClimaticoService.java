@@ -22,7 +22,7 @@ public class AlertaClimaticoService {
         this.clima = clima;
     }
 
-    public List<String> verificarAlertas() {
+    public List<String> verificarAlertas(boolean msgSemAlertas) {
         List<String> alertas = new ArrayList<>();
 
         verificarTemperatura(alertas);
@@ -31,7 +31,7 @@ public class AlertaClimaticoService {
         verificarChuva(alertas);
         verificarProbabilidadeChuva(alertas);
 
-        if (alertas.isEmpty()) {
+        if (msgSemAlertas && alertas.isEmpty()) {
             alertas.add("Nenhuma condição extrema detectada.");
         }
 

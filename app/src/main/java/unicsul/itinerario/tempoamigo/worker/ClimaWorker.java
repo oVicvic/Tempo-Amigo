@@ -42,7 +42,7 @@ public class ClimaWorker extends Worker {
             ClimaDTO clima = repository.buscarClimaPorLocalizacaoBackground().get(30, TimeUnit.SECONDS);
             Log.d(TAG, "Clima recebido: " + clima.current.temperature2m + "°C");
 
-            List<String> alertas = new AlertaClimaticoService(clima).verificarAlertas();
+            List<String> alertas = new AlertaClimaticoService(clima).verificarAlertas(false);
             Log.d(TAG, "Alertas encontrados: " + alertas.size());
 
             if (!NotificationManagerCompat.from(getApplicationContext()).areNotificationsEnabled()) {
