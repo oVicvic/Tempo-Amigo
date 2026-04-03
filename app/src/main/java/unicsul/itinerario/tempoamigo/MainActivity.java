@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.NetworkType;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
@@ -64,10 +66,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void agendarWorker() {
+        Constraints constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .build();
+
         PeriodicWorkRequest trabalho = new PeriodicWorkRequest.Builder(
                 ClimaWorker.class,
-                15, TimeUnit.MINUTES
-        ).build();
+                15,
+                TimeUnit.MINUTES
+        )
+                .setConstraints(constraints)
+                .build();
 
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
                 ClimaWorker.TAG,
