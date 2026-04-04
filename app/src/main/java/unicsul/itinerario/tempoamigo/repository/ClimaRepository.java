@@ -2,7 +2,7 @@ package unicsul.itinerario.tempoamigo.repository;
 
 import java.util.concurrent.CompletableFuture;
 
-import unicsul.itinerario.tempoamigo.dto.ClimaDTO;
+import unicsul.itinerario.tempoamigo.model.Clima;
 import unicsul.itinerario.tempoamigo.location.LocalizacaoClient;
 import unicsul.itinerario.tempoamigo.network.clima.ClimaApiClient;
 
@@ -16,7 +16,7 @@ public class ClimaRepository {
         this.climaApiClient = climaApiClient;
     }
 
-    public CompletableFuture<ClimaDTO> buscarClimaPorLocalizacao() {
+    public CompletableFuture<Clima> buscarClimaPorLocalizacao() {
         return localizacaoClient.obterLocalizacao()
                 .thenCompose(location -> climaApiClient.buscarClima(
                         location.getLatitude(),
@@ -24,7 +24,7 @@ public class ClimaRepository {
                 ));
     }
 
-    public CompletableFuture<ClimaDTO> buscarClimaPorLocalizacaoBackground() {
+    public CompletableFuture<Clima> buscarClimaPorLocalizacaoBackground() {
         return localizacaoClient.obterLocalizacaoBackground()
                 .thenCompose(location -> climaApiClient.buscarClima(
                         location.getLatitude(),

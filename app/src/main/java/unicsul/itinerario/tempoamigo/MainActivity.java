@@ -25,7 +25,8 @@ import java.util.stream.Collectors;
 import unicsul.itinerario.tempoamigo.location.LocalizacaoClient;
 import unicsul.itinerario.tempoamigo.location.PermissaoHelper;
 import unicsul.itinerario.tempoamigo.model.Alerta;
-import unicsul.itinerario.tempoamigo.network.clima.ClimaApiClient;
+import unicsul.itinerario.tempoamigo.model.Clima;
+import unicsul.itinerario.tempoamigo.network.clima.OpenMeteoApiClient;
 import unicsul.itinerario.tempoamigo.repository.ClimaRepository;
 import unicsul.itinerario.tempoamigo.service.AlertaClimaticoService;
 import unicsul.itinerario.tempoamigo.worker.ClimaWorker;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         climaRepository = new ClimaRepository(
                 new LocalizacaoClient(getApplicationContext()),
-                ClimaApiClient.criar()
+                OpenMeteoApiClient.criar()
         );
 
         permissao = new PermissaoHelper(this);
@@ -94,10 +95,10 @@ public class MainActivity extends AppCompatActivity {
 
         climaRepository.buscarClimaPorLocalizacao()
                 .thenAcceptAsync(clima -> {
-                    textViewTemp.setText(clima.current.temperature2m + "°C");
-                    textViewUmidade.setText("Umidade: " + clima.current.relativeHumidity2m + "%");
-                    textViewVento.setText("Vento: " + clima.current.windSpeed10m + " km/h");
-                    textViewChuva.setText("Chuva: " + clima.current.precipitation + " mm");
+                    textViewTemp.setText(clima.getTemperatura() + "°C");
+                    textViewUmidade.setText("Umidade: " + clima.getUmidade() + "%");
+                    textViewVento.setText("Vento: " + clima.getVelocidadeVento() + " km/h");
+                    textViewChuva.setText("Chuva: " + clima.getPrecipitacaoAtual() + " mm");
 
                     List<Alerta> alertas = new AlertaClimaticoService(clima).verificarAlertas();
 
