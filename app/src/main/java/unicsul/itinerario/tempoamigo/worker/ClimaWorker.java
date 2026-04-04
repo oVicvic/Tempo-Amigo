@@ -74,10 +74,14 @@ public class ClimaWorker extends Worker {
             Log.w(TAG, "Notificações desativadas pelo usuário — abortando");
             return;
         }
+
         if (alertas.isEmpty()) {
-            Log.d(TAG, "Sem alertas, nenhuma notificação enviada");
+            Log.d(TAG, "Sem alertas — cancelando notificação anterior se existir");
+            NotificationManagerCompat.from(getApplicationContext())
+                    .cancel(NotificacaoService.NOTIFICACAO_ID);
             return;
         }
+
         Log.d(TAG, "Disparando notificação...");
         new ContatoEmergenciaFactory(getApplicationContext())
                 .buscar()

@@ -22,7 +22,7 @@ public class NotificacaoService {
 
     private static final String CANAL_ID = "alertas_climaticos";
     private static final String CANAL_NOME = "Alertas Climáticos";
-    private static final int NOTIFICACAO_ID = 1;
+    public static final int NOTIFICACAO_ID = 1;
 
     private final Context context;
     private final NotificationManager notificationManager;
