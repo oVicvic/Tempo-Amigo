@@ -1,4 +1,4 @@
-package unicsul.itinerario.tempoamigo.network.clima;
+package unicsul.itinerario.tempoamigo.network.clima.openmeteo;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -11,6 +11,8 @@ import retrofit2.http.GET;
 import retrofit2.http.QueryMap;
 import unicsul.itinerario.tempoamigo.model.Clima;
 import unicsul.itinerario.tempoamigo.network.HttpClient;
+import unicsul.itinerario.tempoamigo.network.clima.ClimaApiClient;
+import unicsul.itinerario.tempoamigo.network.clima.ClimaMapper;
 
 public class OpenMeteoApiClient implements ClimaApiClient {
 

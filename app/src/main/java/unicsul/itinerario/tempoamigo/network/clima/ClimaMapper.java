@@ -9,6 +9,7 @@ import java.util.List;
 import unicsul.itinerario.tempoamigo.model.Clima;
 import unicsul.itinerario.tempoamigo.model.ClimaDiario;
 import unicsul.itinerario.tempoamigo.model.ClimaHorario;
+import unicsul.itinerario.tempoamigo.network.clima.openmeteo.OpenMeteoForecast;
 
 public class ClimaMapper {
 

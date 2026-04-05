@@ -1,4 +1,4 @@
-package unicsul.itinerario.tempoamigo.network.clima;
+package unicsul.itinerario.tempoamigo.network.clima.openmeteo;
 
 import com.google.gson.annotations.SerializedName;
 
