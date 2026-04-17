@@ -42,6 +42,22 @@ public class NotificacaoService {
         notificationManager.createNotificationChannel(canal);
     }
 
+    public void notificarAlertasSemContato(List<Alerta> alertas) {
+        String conteudo = alertas.stream()
+                .map(Alerta::formatarParaNotificacao)
+                .collect(Collectors.joining("\n"));
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CANAL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("⚠️ Alertas Climáticos")
+                .setContentText(alertas.size() + " alerta(s) detectado(s)")
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(conteudo))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true);
+
+        notificationManager.notify(NOTIFICACAO_ID, builder.build());
+    }
+
     public void notificarAlertas(List<Alerta> alertas, ContatoEmergencia contato, Localizacao localizacao) {
         MensagemEmergencia mensagem = new MensagemEmergencia(contato, localizacao);
 

@@ -82,10 +82,15 @@ public class ClimaWorker extends Worker {
         Log.d(TAG, "Disparando notificação...");
         new ContatoEmergenciaFactory(getApplicationContext())
                 .buscar()
-                .thenAccept(contato ->
-                        new NotificacaoService(getApplicationContext())
-                                .notificarAlertas(alertas, contato, localizacao)
-                );
+                .thenAccept(contato -> {
+                    NotificacaoService notificacaoService = new NotificacaoService(getApplicationContext());
+                    if (contato == null) {
+                        Log.w(TAG, "Nenhum contato cadastrado — notificando sem ação de WhatsApp");
+                        notificacaoService.notificarAlertasSemContato(alertas);
+                    } else {
+                        notificacaoService.notificarAlertas(alertas, contato, localizacao);
+                    }
+                });
         Log.d(TAG, "Notificação disparada com sucesso!");
     }
 }
