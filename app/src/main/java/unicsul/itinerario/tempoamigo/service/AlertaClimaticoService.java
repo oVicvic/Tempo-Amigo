@@ -41,7 +41,7 @@ public class AlertaClimaticoService {
     private void verificarCodigoClima(List<Alerta> alertas) {
         int codigo = clima.getCodigoClima();
 
-        if (codigo >= 96 || true) {
+        if (codigo >= 96) {
             alertas.add(new Alerta(Alerta.Tipo.TEMPESTADE, Alerta.Severidade.CRITICO, codigo));
         } else if (codigo == 95) {
             alertas.add(new Alerta(Alerta.Tipo.TEMPESTADE, Alerta.Severidade.ATENCAO, codigo));
