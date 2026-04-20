@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,6 +63,7 @@ public class HomeFragment extends Fragment {
         TextView textViewVento = view.findViewById(R.id.textViewVento);
         TextView textViewChuva = view.findViewById(R.id.textViewChuva);
         TextView textViewAlertas = view.findViewById(R.id.textViewAlertas);
+        Button buttonWhatsApp = view.findViewById(R.id.buttonWhatsApp);
 
         climaRepository.buscarClimaPorLocalizacao()
                 .thenAcceptAsync(clima -> {
@@ -86,6 +88,8 @@ public class HomeFragment extends Fragment {
                             .collect(Collectors.joining("\n\n"));
 
                     textViewAlertas.setText(textoAlertas);
+                    buttonWhatsApp.setVisibility(alertas.isEmpty() ? View.GONE : View.VISIBLE);
+
                 }, mainThread::post)
                 .exceptionally(erro -> {
                     Log.e(TAG, erro.getMessage());
@@ -99,7 +103,7 @@ public class HomeFragment extends Fragment {
                     .buscar()
                     .thenAcceptAsync(contato -> {
                         if (contato == null) {
-                            Navigation.findNavController(view).navigate(R.id.menu_edit);
+                            Navigation.findNavController(view).navigate(R.id.action_home_to_edicao);
                         } else {
                             dispararWorker(AcaoAlertaRegistry.ABRIR_WHATSAPP);
                         }
